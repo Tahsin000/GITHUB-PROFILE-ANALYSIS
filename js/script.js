@@ -40,7 +40,7 @@ const displayProfile = (profile)=>{
       <p>🗺️<span>${profile.location}</span></p>
       <p>📅<span>${profile.created_at}</span></p>
       <div class="card-actions justify-end">
-        <a href=${profile.url} class="btn btn-primary">Visite now</a>
+        <a target="_blank" href=${profile.html_url} class="btn btn-primary">Visite now</a>
       </div>
     </div>
     `
