@@ -35,7 +35,7 @@ const displayProfile = (profile)=>{
     const div = document.createElement('div');
     div.innerHTML = `
     <div class="grid md:grid-cols-2 gap-3 items-end p-5 my-[10rem]">
-        <div class="flex flex-col justify-center items-center">
+        <div data-aos="fade-up" data-aos-duration="500"  class="flex flex-col justify-center items-center">
             <div class="bg-white w-full card rounded-[1rem] bg-gray-300 flex flex-col justify-center items-center">
                 <div class="text-[#000000] relative top-[-6rem] flex flex-col justify-center items-center p-5">
                     <img class=" drop-shadow-xl w-[13rem] rounded-full" src=${profile.avatar_url} alt="">
@@ -78,21 +78,21 @@ const displayProfile = (profile)=>{
             </div>
         </div>
         
-        <div class="md:h-full max-md:w-full bg-white rounded-[1rem] md:row-span-2">
+        <div data-aos="fade-up" data-aos-duration="500" class="md:h-full max-md:w-full bg-white rounded-[1rem] md:row-span-2">
             <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=${profile.login}&langs_count=8" class=" w-full rounded-[1rem]" >
             <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=${profile.login}&layout=compact" class=" w-full " >
            
         </div>
 
-        <div class="md:h-full w-full bg-white rounded-[1rem] ">
+        <div data-aos="fade-up" data-aos-duration="500" class="md:h-full w-full bg-white rounded-[1rem] ">
             <img src="https://github-readme-stats.vercel.app/api?username=${profile.login}&show_icons=true" class=" w-full " >
         </div>
 
-        <div class="max-md:h-full w-full bg-white rounded-[1rem] md:col-span-2 flex justify-center">
+        <div data-aos="fade-up" data-aos-duration="500" class="max-md:h-full w-full bg-white rounded-[1rem] md:col-span-2 flex justify-center">
             <img src="https://github-readme-streak-stats.herokuapp.com/?user=${profile.login}&hide_border=true" >
         </div>
 
-        <div class="max-md:h-full w-full bg-white rounded-[1rem] md:col-span-2 flex justify-center">
+        <div data-aos="fade-up" data-aos-duration="500" class="max-md:h-full w-full bg-white rounded-[1rem] md:col-span-2 flex justify-center">
             
             <span class="flex justify-center block w-full"> 
                 <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=${profile. login}" class="w-full rounded-[1rem]" >
@@ -132,7 +132,7 @@ const displayFollower = (followers)=>{
         const followerCreate = document.createElement('div');
         followerCreate.classList.add("bg-white", "w-full", "rounded-[1rem]", "flex", "justify-between", "items-center", "p-4", "my-1");
         followerCreate.innerHTML =  `
-        <div class="md:flex items-center justify-between" >
+        <div data-aos="fade-up" data-aos-duration="300" class="md:flex items-center justify-between" >
                 <img class="rounded-full w-[5rem]" src=${follower.avatar_url} alt=""/>
                 <div class="ml-5">
                     <h2> <span class="text-[1.25rem] font-bold text-[#21262d]">${follower.name || follower.login} &#9;</span><span class="text-[#545d6a] text-[0.5]">${follower.login}</span> </h2>
