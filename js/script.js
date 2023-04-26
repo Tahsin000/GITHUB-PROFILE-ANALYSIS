@@ -1,5 +1,13 @@
 
 const errorNotice = document.getElementById('errorNotice');
+
+const handleKeypressEnter = (event)=>{
+    if(event.keyCode === 13){
+        console.log('text is Done')
+        handleSearch();
+    }
+}
+
 const handleSearch = ()=>{
     const search = document.getElementById('search').value;   
     pathName = pathNameFind(search);
