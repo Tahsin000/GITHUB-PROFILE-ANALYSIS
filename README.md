@@ -163,3 +163,101 @@ Remember that renaming a branch affects only the branch name itself and doesn't 
    This will update the remote repository with the merged changes.
 
 By following these steps, you can effectively merge one branch into another while ensuring that the changes from the source branch are incorporated into the target branch.
+
+
+
+
+
+
+
+
+
+
+---
+
+# Resetting Commits in a Git Repository 
+
+## [this information collected from this video](https://youtu.be/lVpLoUecZYY)
+
+This README provides step-by-step instructions on how to reset commits in a Git repository. Resetting commits can be useful for various purposes, such as undoing changes, splitting commits, or reorganizing your commit history. 
+
+## Prerequisites
+
+Before resetting commits, ensure you have the following:
+
+- Git installed on your system.
+- Access to the Git Bash or Terminal.
+
+## Resetting Commits
+
+### Step 1: Open Terminal or Git Bash
+
+Navigate to your project's directory using the command line.
+
+### Step 2: Check Your Branch
+
+Ensure you are on the correct branch where you want to reset the commit. You can check your current branch with the following command:
+
+```bash
+git branch
+```
+
+### Step 3: Identify the Commit to Reset
+
+Determine which commit you want to reset to. You can use `git log` to view a history of commits. Take note of the commit hash or the relative position (e.g., `HEAD~2` for two commits back).
+
+```bash
+git log
+```
+
+### Step 4: Perform the Reset
+
+Choose the appropriate reset option based on your needs:
+
+#### Soft Reset (Preserving Changes in Staging Area)
+
+To reset to a previous commit while preserving the changes in the staging area, use the following command. Replace `<commit>` with the commit you want to reset to.
+
+```bash
+git reset --soft <commit>
+```
+
+#### Mixed Reset (Unstaging Changes)
+
+To reset to a previous commit and unstage the changes (changes will still be in your working directory but not staged), use:
+
+```bash
+git reset --mixed <commit>
+```
+
+#### Hard Reset (Discarding Changes)
+
+To reset to a previous commit and discard all changes (both in staging and working directory), use:
+
+```bash
+git reset --hard <commit>
+```
+
+### Step 5: Commit the Reset
+
+After the reset, you can make a new commit with the changes as desired, or simply keep the reset state. If you intend to make a new commit, use:
+
+```bash
+git commit -m "New commit message"
+```
+
+### Step 6: Push the Changes (If working in a shared repository)
+
+If you are working in a collaborative environment and have already pushed the old commits to a remote repository, you may need to force-push your changes:
+
+```bash
+git push origin <branch_name> --force
+```
+
+Be cautious when force-pushing, as it can overwrite the history in the remote repository, potentially causing conflicts for other collaborators.
+
+Remember to exercise caution when using reset, especially in shared repositories, as it can rewrite history and affect other team members. Communication with your team and understanding the implications of your actions is crucial when making changes to the commit history.
+
+---
+
+Feel free to include this README in your project's repository and customize it as needed.
