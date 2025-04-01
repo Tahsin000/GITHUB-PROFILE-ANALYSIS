@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HHJN - GitHub Profile Analysis Documentation</title>
+
+    <link rel="icon" type="image/svg+xml" href="./icons/HHJN.svg" />
+    <link rel="stylesheet" href="./css/aos.css" />
+    <link rel="stylesheet" href="css/daisyui.full.css" />
+    <link rel="stylesheet" href="css/tailwind.min.css" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-800 text-white">
+    <!-- Header -->
+    <header class="bg-gray-900 py-6 border-b border-gray-700">
+      <div class="container mx-auto px-4">
+        <div class="flex items-center justify-between">
+          <a href="index.html" class="flex items-center">
+          </a>
+          <a href="index.html" class="btn btn-outline btn-sm">Back to App</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-10">
+      <h1 class="text-3xl font-bold mb-8 text-center">User Documentation</h1>
+
+      <!-- Introduction -->
+      <section class="mb-12 max-w-3xl mx-auto bg-gray-700 p-6 rounded-lg">
+        <h2 class="text-2xl font-semibold mb-4">Introduction</h2>
+        <p class="mb-4">
+          The GitHub Profile Analysis tool allows you to explore and visualize data from any GitHub user's profile. 
+          You can analyze language usage, repository statistics, contribution patterns, and more.
+        </p>
+        <p>
+          This documentation will guide you through the process of using the tool effectively.
+        </p>
+      </section>
+
+      <!-- Step-by-step Guide -->
+      <section class="max-w-4xl mx-auto">
+        <h2 class="text-2xl font-semibold mb-6 text-center">Step-by-Step Guide</h2>
+        
+        <!-- Step 1 -->
+        <div class="mb-12 bg-gray-700 p-6 rounded-lg">
+          <div class="flex items-start">
+            <div class="bg-primary text-white rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0 mr-4">
+              <span class="font-bold">1</span>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold mb-3">Search for a GitHub User</h3>
+              <p class="mb-4">
+                On the main page, enter a valid GitHub username in the search box and click the "Search" button 
+                or press Enter. This will fetch the user's profile data from GitHub.
+              </p>
+              <div class="bg-gray-800 p-4 rounded-md mb-4">
+                <p class="text-gray-300 text-sm mb-2"><strong>Note:</strong> GitHub API has rate limits. If you encounter an error message, you might need to wait before making more requests.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="mb-12 bg-gray-700 p-6 rounded-lg">
+          <div class="flex items-start">
+            <div class="bg-primary text-white rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0 mr-4">
+              <span class="font-bold">2</span>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold mb-3">View User Profile Information</h3>
+              <p class="mb-4">
+                After searching, the app will display the user's profile information including:
+              </p>
+              <ul class="list-disc pl-5 mb-4 space-y-2">
+                <li>Profile picture and name</li>
+                <li>Bio and location</li>
+                <li>Links to GitHub profile</li>
+                <li>Statistics (followers, following, repositories, gists)</li>
+              </ul>
+              
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="mb-12 bg-gray-700 p-6 rounded-lg">
+          <div class="flex items-start">
+            <div class="bg-primary text-white rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0 mr-4">
+              <span class="font-bold">3</span>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold mb-3">Explore Data Visualizations</h3>
+              <p class="mb-4">
+                The tool provides several visualizations of the user's GitHub data:
+              </p>
+              <ul class="list-disc pl-5 mb-4 space-y-2">
+                <li><strong>Language Usage Chart:</strong> Displays the programming languages used across repositories</li>
+                <li><strong>Contribution Heatmap:</strong> Shows the user's contribution activity over the past year</li>
+                <li><strong>Top Starred Repositories:</strong> Lists the user's 5 most popular repositories</li>
+                <li><strong>Followers vs Following Chart:</strong> Compares followers and following counts</li>
+              </ul>
+              <p class="mb-4">
+                Hover over charts and visualizations to see detailed information and tooltips.
+              </p>
+              
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="mb-12 bg-gray-700 p-6 rounded-lg">
+          <div class="flex items-start">
+            <div class="bg-primary text-white rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0 mr-4">
+              <span class="font-bold">4</span>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold mb-3">Filter and Sort Repositories</h3>
+              <p class="mb-4">
+                At the bottom of the page, you can browse through all of the user's repositories with these features:
+              </p>
+              <ul class="list-disc pl-5 mb-4 space-y-2">
+                <li><strong>Filter by Language:</strong> Use the dropdown to show only repositories in a specific programming language</li>
+                <li><strong>Sort Repositories:</strong> Sort by last updated, most stars, most forks, or alphabetically</li>
+              </ul>
+              
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="mb-12 bg-gray-700 p-6 rounded-lg">
+          <div class="flex items-start">
+            <div class="bg-primary text-white rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0 mr-4">
+              <span class="font-bold">5</span>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold mb-3">View Repository Details</h3>
+              <p class="mb-4">
+                Each repository card displays:
+              </p>
+              <ul class="list-disc pl-5 mb-4 space-y-2">
+                <li>Repository name and description</li>
+                <li>Primary language and topics</li>
+                <li>Star and fork counts</li>
+                <li>Last update time</li>
+                <li>Links to the GitHub repository and live demo (if available)</li>
+              </ul>
+              <p class="mb-4">
+                Click on "View Repo" to visit the GitHub repository page, or "Live Demo" to see the deployed project (if available).
+              </p>
+              
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tips and FAQs -->
+      <section class="max-w-3xl mx-auto mt-16">
+        <h2 class="text-2xl font-semibold mb-6 text-center">Tips and FAQs</h2>
+        
+        <div class="bg-gray-700 p-6 rounded-lg">
+          <div class="mb-6">
+            <h3 class="text-xl font-semibold mb-2">Tips for Best Results</h3>
+            <ul class="list-disc pl-5 space-y-2">
+              <li>Use the exact GitHub username (case-sensitive)</li>
+              <li>Be patient when loading profiles with many repositories</li>
+              <li>Try different sorting options to find repositories of interest</li>
+            </ul>
+          </div>
+          
+          <div class="border-t border-gray-600 pt-6">
+            <h3 class="text-xl font-semibold mb-4">Frequently Asked Questions</h3>
+            
+            <div class="space-y-4">
+              <!-- FAQ Item -->
+              <div>
+                <h4 class="font-semibold text-primary mb-1">Why does the search fail?</h4>
+                <p>Search may fail if the username doesn't exist or if you've exceeded GitHub's API rate limits. Wait a few minutes and try again.</p>
+              </div>
+              
+              <!-- FAQ Item -->
+              <div>
+                <h4 class="font-semibold text-primary mb-1">Can I analyze private repositories?</h4>
+                <p>No, this tool only analyzes public repositories available through the GitHub API.</p>
+              </div>
+              
+              <!-- FAQ Item -->
+              <div>
+                <h4 class="font-semibold text-primary mb-1">Why are some repositories shown as "Other" language?</h4>
+                <p>GitHub may not detect a primary language for some repositories, or the repository might not contain code files.</p>
+              </div>
+              
+              <!-- FAQ Item -->
+              <div>
+                <h4 class="font-semibold text-primary mb-1">How often is the data updated?</h4>
+                <p>The data is fetched in real-time when you search for a user, reflecting their current GitHub profile status.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 py-10 px-4 border-t border-gray-700">
+      <div class="container mx-auto">
+        <!-- Main footer content -->
+        <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+          <!-- Logo and description -->
+          <div class="mb-6 md:mb-0 text-center md:text-left max-w-md">
+            <a
+              href="index.html"
+              class="flex items-center justify-center md:justify-start hover:opacity-90 transition-opacity"
+            >
+              <img
+                src="./icons/HHJN.svg"
+                alt="HHJN Logo"
+                class="h-10 w-10 mr-3"
+              />
+              <span class="font-bold text-xl text-white"
+                >GitHub Profile Analysis</span
+              >
+            </a>
+            <p class="text-gray-400 mt-3 max-w-sm">
+              A powerful tool to analyze GitHub profiles with interactive
+              visualizations and comprehensive statistics.
+            </p>
+          </div>
+
+          <!-- Navigation links -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-4">
+            <div>
+              <h3 class="font-semibold text-white mb-3">Resources</h3>
+              <ul class="space-y-2">
+                <li>
+                  <a
+                    href="https://github.com/TEAM-OF-HHJN"
+                    target="_blank"
+                    class="text-gray-400 hover:text-white transition-colors flex items-center"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-4 w-4 mr-2"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"
+                      />
+                    </svg>
+                    Team HHJN
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="font-semibold text-white mb-3">API</h3>
+              <ul class="space-y-2">
+                <li>
+                  <a
+                    href="https://docs.github.com/en/rest"
+                    target="_blank"
+                    class="text-gray-400 hover:text-white transition-colors flex items-center"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-4 w-4 mr-2"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                      />
+                    </svg>
+                    GitHub API Docs
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="border-t border-gray-800 my-6"></div>
+
+        <!-- Copyright and social links -->
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <p class="text-gray-500 text-sm">
+            &copy; 2023 HHJN. All rights reserved.
+          </p>
+
+          <!-- Social links -->
+          <div class="flex space-x-4 mt-4 md:mt-0">
+            <a
+              href="https://github.com/TEAM-OF-HHJN"
+              target="_blank"
+              class="text-gray-400 hover:text-white transition-colors"
+              aria-label="GitHub"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

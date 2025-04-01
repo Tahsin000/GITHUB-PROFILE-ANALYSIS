@@ -1,61 +1,1157 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HHJN - GitHub Profile Analysis</title>
+
     <link rel="icon" type="image/svg+xml" href="./icons/HHJN.svg" />
+    <link rel="stylesheet" href="./css/aos.css" />
+    <link rel="stylesheet" href="css/daisyui.full.css" />
+    <link rel="stylesheet" href="css/tailwind.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/github-calendar@latest/dist/github-calendar-responsive.css"
+    />
 
-
-    <!-- Aos -->
-    <link rel="stylesheet" href="./css/aos.css">
-
-    <!-- daisyui -->
-    <link rel="stylesheet" href="css/daisyui.full.css">
-    <!-- <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.5/dist/full.css" rel="stylesheet" type="text/css" /> -->
-    <!-- <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.5/dist/full.css" rel="stylesheet" type="text/css" /> -->
-
-    <!-- tailwind -->
-    <link rel="stylesheet" href="css/tailwind.min.css">
-    <!-- <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet" type="text/css" /> -->
-
-
-    <title>HHJN</title>
-</head>
-<body>
-    <header class="hero">
-        <div class="h-screen flex flex-col justify-center items-center form-control">
-            <p data-aos="fade-up" data-aos-duration="400" class="text-center md:text-3xl text-xl font-bold ">GitHub Profile Analysis</p>
-            <div class="mt-[2rem] ">
-                <div data-aos="fade-up" data-aos-duration="600" class="input-group">
-                    <input onkeypress="handleKeypressEnter(event)" type="text" id="search" placeholder="To search GitHub account, type here" class="input input-bordered md:w-[25rem]" />
-                    <a  href="#ProfileInfoSection" onclick="handleSearch()" class="btn btn-square">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
-                    </a>
-                </div >
-            </div>
-            <p id="errorNotice" class="mt-[1rem] text-red-600 hidden">Error user Path</p>
-        </div>
-        
-        
-    </header>
-    <section class="bg-gray-600" id="ProfileInfoSection">
-        <div id="ProfileInfo" class="hidden h-screen flex flex-col items-center justify-center">
-            <div class="card lg:card-side bg-base-300 shadow-xl">
-               
-            </div>
-        </div>
-    </section>
-    <div class="bg-base-300 flex justify-center">
-        <div class="absolute bottom-0  p-2">
-            <a href="https://github.com/TEAM-OF-HHJN" id="copyRight" class="text-gray-400"><small>Copyright © 2023 <span style="font-weight: 700;">HHJN</span> </small></a>
-        </div>
-    </div>
-    <script src="js/script.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/github-calendar@latest/dist/github-calendar.min.js"></script>
+  </head>
+  <body class="bg-gray-800 text-white">
+    <!-- Header -->
+    <header class="hero bg-gray-800">
+      <div
+        class="h-screen flex flex-col justify-center items-center form-control px-4"
+      >
+        <h1
+          data-aos="fade-up"
+          class="text-center md:text-4xl text-2xl font-bold mb-2"
+        >
+          GitHub Profile Analysis
+        </h1>
+        <p data-aos="fade-up" class="text-center text-gray-300 mb-8 max-w-2xl">
+          Enter a GitHub username to analyze their profile, repositories, and
+          activity
+        </p>
+        <div class="w-full max-w-md">
+          <div class="flex items-center" data-aos="fade-up">
+            <input
+              onkeypress="handleKeypressEnter(event)"
+              type="text"
+              id="search"
+              placeholder="Enter GitHub username"
+              class="input input-bordered w-full focus:ring-2 focus:ring-primary"
+              aria-label="GitHub username"
+            />
+            <button
+              onclick="handleSearch()"
+              class="btn btn-primary ml-2 flex items-center gap-2 px-4"
+              aria-label="Search GitHub profile"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+              <span class="hidden sm:inline">Search</span>
+            </button>
+          </div>
+        </div>
+        <div class="mt-6" data-aos="fade-up" id="helpButtonContainer">
+          <a
+            href="documentation.html"
+            class="btn btn-outline btn-sm gap-2 transition-colors"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <span>How to use this tool</span>
+          </a>
+        </div>
+        <div id="loadingIndicator" class="mt-6 hidden">
+          <div class="card bg-base-200 shadow-lg p-4 max-w-md w-full">
+            <div class="flex flex-col items-center">
+              <div class="relative mb-4">
+                <div
+                  class="loading loading-spinner loading-lg text-primary"
+                ></div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5 text-primary-content"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div class="text-center">
+                <p class="font-medium mb-2">
+                  Fetching GitHub data for
+                  <span
+                    id="loadingUsername"
+                    class="font-bold text-primary"
+                  ></span>
+                </p>
+                <p id="loadingMessage" class="text-sm text-gray-400">
+                  Retrieving profile information...
+                </p>
+                <div class="mt-4 progress progress-primary w-full">
+                  <div
+                    id="progressBar"
+                    class="transition-all duration-300"
+                    style="width: 0%"
+                  ></div>
+                </div>
+                <div
+                  class="flex justify-between text-xs text-gray-500 w-full mt-1"
+                >
+                  <span>Profile</span>
+                  <span>Repositories</span>
+                  <span>Activity</span>
+                </div>
+              </div>
+              <div class="mt-4">
+                <button
+                  onclick="cancelSearch()"
+                  class="btn btn-sm btn-outline mt-2"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p id="errorNotice" class="mt-4 text-red-500 hidden">
+          Invalid GitHub username or API rate limit exceeded.
+        </p>
+      </div>
+    </header>
+
+    <!-- Profile Info -->
+    <section class="bg-gray-700 p-6 py-12" id="ProfileInfoSection">
+      <div
+        id="ProfileInfo"
+        class="hidden flex flex-col items-center justify-center space-y-12 container mx-auto"
+      >
+        <!-- User Profile Header -->
+        <div
+          class="flex flex-col md:flex-row items-center gap-6 w-full max-w-4xl bg-gray-800 p-6 rounded-lg shadow-lg"
+        >
+          <img
+            id="userAvatar"
+            src=""
+            alt="GitHub avatar"
+            class="w-24 h-24 rounded-full object-cover"
+          />
+          <div class="text-center md:text-left">
+            <h2 id="userName" class="text-2xl font-bold"></h2>
+            <p id="userBio" class="text-gray-300 mt-1"></p>
+            <div
+              class="flex flex-wrap gap-4 mt-4 justify-center md:justify-start"
+            >
+              <a
+                id="profileLink"
+                href="#"
+                target="_blank"
+                class="btn btn-sm btn-outline"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  viewBox="0 0 16 16"
+                  class="mr-1"
+                >
+                  <path
+                    d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+                  />
+                </svg>
+                Profile
+              </a>
+              <span id="userLocation" class="badge badge-outline"></span>
+            </div>
+          </div>
+          <div class="flex justify-end w-full max-w-4xl">
+            <a
+              href="documentation.html"
+              class="btn btn-ghost btn-xs text-gray-400 hover:text-white"
+              title="View documentation"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-4 w-4 mr-1"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <span>Help</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats shadow bg-base-300 w-full max-w-5xl">
+          <div class="stat">
+            <div class="stat-title">Followers</div>
+            <div class="stat-value text-primary" id="followersCount">0</div>
+            <div class="stat-desc" id="followersUrl">
+              <a href="#" target="_blank" class="text-primary underline text-xs"
+                >View all</a
+              >
+            </div>
+          </div>
+          <div class="stat">
+            <div class="stat-title">Following</div>
+            <div class="stat-value text-secondary" id="followingCount">0</div>
+            <div class="stat-desc" id="followingUrl">
+              <a
+                href="#"
+                target="_blank"
+                class="text-secondary underline text-xs"
+                >View all</a
+              >
+            </div>
+          </div>
+          <div class="stat">
+            <div class="stat-title">Repositories</div>
+            <div class="stat-value text-accent" id="repoCount">0</div>
+          </div>
+          <div class="stat">
+            <div class="stat-title">Public Gists</div>
+            <div class="stat-value text-info" id="gistCount">0</div>
+          </div>
+        </div>
+
+        <!-- Language Usage and Contribution Heatmap -->
+        <div class="flex flex-col lg:flex-row gap-6 w-full justify-center">
+          <!-- Language Usage -->
+          <div
+            class="bg-base-100 rounded-lg p-4 shadow w-full lg:w-1/2 max-w-2xl"
+          >
+            <h2 class="text-lg font-semibold mb-2">Language Usage</h2>
+            <canvas id="languageChart" height="300"></canvas>
+          </div>
+
+          <!-- Contribution Heatmap -->
+          <div
+            class="bg-base-100 rounded-lg p-4 shadow w-full lg:w-1/2 max-w-2xl"
+          >
+            <h2 class="text-lg font-semibold mb-2">Contribution Heatmap</h2>
+            <div id="heatmap">Loading heatmap...</div>
+          </div>
+        </div>
+
+        <!-- Top Starred Repos -->
+        <div class="flex flex-col lg:flex-row gap-6 w-full justify-center">
+          <!-- Top Starred Repos -->
+          <div
+            class="bg-base-100 rounded-lg p-4 shadow w-full lg:w-1/2 max-w-2xl"
+          >
+            <h2 class="text-lg font-semibold mb-2">
+              Top 5 Starred Repositories
+            </h2>
+            <ul
+              id="topRepos"
+              class="list-disc pl-5 space-y-2 text-white text-base"
+            ></ul>
+          </div>
+
+          <!-- Followers vs Following -->
+          <div
+            class="bg-base-100 rounded-lg p-4 shadow w-full lg:w-1/2 max-w-2xl"
+          >
+            <h2 class="text-lg font-semibold mb-2">Followers vs Following</h2>
+            <canvas id="socialChart" height="200"></canvas>
+          </div>
+        </div>
+
+        <!-- Add this section after the Top Starred Repos and Followers vs Following section -->
+        <div class="w-full max-w-5xl">
+          <h2 class="text-xl font-semibold mb-6 text-center">
+            Followers & Following
+          </h2>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Followers Column -->
+            <div class="bg-base-100 rounded-lg p-4 shadow">
+              <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-semibold">Followers</h3>
+                <a
+                  id="viewAllFollowersLink"
+                  href="#"
+                  target="_blank"
+                  class="text-primary text-sm hover:underline"
+                  >View all</a
+                >
+              </div>
+              <div id="followersContainer" class="space-y-3">
+                <div class="text-center py-8 text-gray-400">
+                  <span class="loading loading-spinner loading-sm mr-2"></span>
+                  Loading followers...
+                </div>
+              </div>
+            </div>
+
+            <!-- Following Column -->
+            <div class="bg-base-100 rounded-lg p-4 shadow">
+              <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-semibold">Following</h3>
+                <a
+                  id="viewAllFollowingLink"
+                  href="#"
+                  target="_blank"
+                  class="text-primary text-sm hover:underline"
+                  >View all</a
+                >
+              </div>
+              <div id="followingContainer" class="space-y-3">
+                <div class="text-center py-8 text-gray-400">
+                  <span class="loading loading-spinner loading-sm mr-2"></span>
+                  Loading following...
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Repo Filter -->
+        <div
+          class="flex flex-col md:flex-row gap-4 items-center w-full justify-center"
+        >
+          <div class="form-control w-full max-w-xs">
+            <label class="label">
+              <span class="label-text text-white">Filter by Language</span>
+            </label>
+            <select
+              class="select select-bordered"
+              id="languageFilter"
+              onchange="filterReposByLanguage(this.value)"
+            >
+              <option value="all">All Languages</option>
+            </select>
+          </div>
+
+          <div class="form-control w-full max-w-xs">
+            <label class="label">
+              <span class="label-text text-white">Sort by</span>
+            </label>
+            <select
+              class="select select-bordered"
+              id="sortOption"
+              onchange="sortRepos(this.value)"
+            >
+              <option value="updated">Last Updated</option>
+              <option value="stars">Most Stars</option>
+              <option value="forks">Most Forks</option>
+              <option value="name">Name (A-Z)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Repo Cards -->
+        <div class="w-full">
+          <h2 class="text-xl font-semibold mb-4 text-center">Repositories</h2>
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full"
+            id="repoList"
+          >
+            <!-- Cards injected here -->
+          </div>
+          <div id="noReposMessage" class="text-center py-8 hidden">
+            <p>No repositories found matching the current filter.</p>
+          </div>
+        </div>
+
+        <!-- Add this right after the User Profile Header section -->
+        <div class="w-full max-w-5xl flex justify-end">
+          <button onclick="resetApp()" class="btn btn-sm btn-outline">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4 mr-1"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10 19l-7-7m0 0l7-7m-7 7h18"
+              />
+            </svg>
+            New Search
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 py-10 px-4 border-t border-gray-700">
+      <div class="container mx-auto">
+        <!-- Main footer content -->
+        <div
+          class="flex flex-col md:flex-row justify-between items-center mb-8"
+        >
+          <!-- Logo and description -->
+          <div class="mb-6 md:mb-0 text-center md:text-left max-w-md">
+            <a
+              href="https://github.com/TEAM-OF-HHJN/github-profile-analysis"
+              target="_blank"
+              class="flex items-center justify-center md:justify-start hover:opacity-90 transition-opacity"
+            >
+              <img
+                src="./icons/HHJN.svg"
+                alt="HHJN Logo"
+                class="h-10 w-10 mr-3"
+              />
+              <span class="font-bold text-xl text-white"
+                >GitHub Profile Analysis</span
+              >
+            </a>
+            <p class="text-gray-400 mt-3 max-w-sm">
+              A powerful tool to analyze GitHub profiles with interactive
+              visualizations and comprehensive statistics.
+            </p>
+          </div>
+
+          <!-- Navigation links -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-4">
+            <div>
+              <h3 class="font-semibold text-white mb-3">Resources</h3>
+              <ul class="space-y-2">
+                <li>
+                  <a
+                    href="https://github.com/TEAM-OF-HHJN"
+                    target="_blank"
+                    class="text-gray-400 hover:text-white transition-colors flex items-center"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-4 w-4 mr-2"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"
+                      />
+                    </svg>
+                    Team HHJN
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="font-semibold text-white mb-3">API</h3>
+              <ul class="space-y-2">
+                <li>
+                  <a
+                    href="https://docs.github.com/en/rest"
+                    target="_blank"
+                    class="text-gray-400 hover:text-white transition-colors flex items-center"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-4 w-4 mr-2"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                      />
+                    </svg>
+                    GitHub API Docs
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="border-t border-gray-800 my-6"></div>
+
+        <!-- Copyright and social links -->
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <p class="text-gray-500 text-sm">
+            &copy; 2023 HHJN. All rights reserved.
+          </p>
+
+          <!-- Social links -->
+          <div class="flex space-x-4 mt-4 md:mt-0">
+            <a
+              href="https://github.com/TEAM-OF-HHJN"
+              target="_blank"
+              class="text-gray-400 hover:text-white transition-colors"
+              aria-label="GitHub"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Script -->
     <script src="./js/aos.js"></script>
     <script>
-        AOS.init();
+      AOS.init();
+
+      let reposGlobal = [];
+      let currentUser = null;
+      let searchCancelled = false;
+      let loadingTimeout = null;
+      let progressInterval = null;
+
+      function handleKeypressEnter(e) {
+        if (e.key === "Enter") handleSearch();
+      }
+
+      async function handleSearch() {
+        const username = document.getElementById("search").value.trim();
+        if (!username) return;
+
+        // Reset cancellation state
+        searchCancelled = false;
+
+        // Show loading indicator with username
+        document.getElementById("loadingUsername").textContent = username;
+        document.getElementById("loadingMessage").textContent =
+          "Retrieving profile information...";
+        document.getElementById("progressBar").style.width = "0%";
+        document.getElementById("loadingIndicator").classList.remove("hidden");
+        document.getElementById("errorNotice").classList.add("hidden");
+        document.getElementById("ProfileInfo").classList.add("hidden");
+        document.getElementById("helpButtonContainer").classList.add("hidden");
+
+        // Start progress animation
+        let progress = 0;
+        progressInterval = setInterval(() => {
+          if (searchCancelled) {
+            clearInterval(progressInterval);
+            return;
+          }
+
+          progress += 1;
+          if (progress <= 90) {
+            // Only go to 90% automatically
+            document.getElementById("progressBar").style.width = `${progress}%`;
+
+            // Update loading message based on progress
+            if (progress === 30) {
+              document.getElementById("loadingMessage").textContent =
+                "Finding repositories...";
+            } else if (progress === 60) {
+              document.getElementById("loadingMessage").textContent =
+                "Analyzing language usage...";
+            } else if (progress === 80) {
+              document.getElementById("loadingMessage").textContent =
+                "Preparing data visualizations...";
+            }
+          }
+        }, 50);
+
+        try {
+          // Set a timeout to show a "Taking longer than expected" message if needed
+          loadingTimeout = setTimeout(() => {
+            if (!searchCancelled) {
+              document.getElementById("loadingMessage").textContent =
+                "This is taking longer than expected. GitHub API might be busy...";
+            }
+          }, 8000);
+
+          // Fetch user data
+          const userRes = await fetch(
+            `https://api.github.com/users/${username}`
+          );
+          if (searchCancelled) return;
+          if (!userRes.ok) throw new Error("User not found");
+
+          const user = await userRes.json();
+          if (searchCancelled) return;
+          currentUser = user;
+
+          // Update progress
+          document.getElementById("progressBar").style.width = "40%";
+          document.getElementById("loadingMessage").textContent =
+            "Loading repositories...";
+
+          // Fetch repositories
+          const reposRes = await fetch(`${user.repos_url}?per_page=100`);
+          if (searchCancelled) return;
+          if (!reposRes.ok) throw new Error("Could not fetch repositories");
+
+          const repos = await reposRes.json();
+          if (searchCancelled) return;
+          reposGlobal = repos;
+
+          // Update progress
+          document.getElementById("progressBar").style.width = "70%";
+          document.getElementById("loadingMessage").textContent =
+            "Processing data...";
+
+          // Update user profile info
+          document.getElementById("userName").textContent =
+            user.name || user.login;
+          document.getElementById("userAvatar").src = user.avatar_url;
+          document.getElementById(
+            "userAvatar"
+          ).alt = `${user.login}'s GitHub avatar`;
+          document.getElementById("userBio").textContent = user.bio || "";
+          document.getElementById("userLocation").textContent =
+            user.location || "";
+          document.getElementById("profileLink").href = user.html_url;
+          document
+            .getElementById("followersUrl")
+            .querySelector("a").href = `${user.html_url}?tab=followers`;
+          document
+            .getElementById("followingUrl")
+            .querySelector("a").href = `${user.html_url}?tab=following`;
+
+          // Update stats
+          document.getElementById("followersCount").textContent =
+            user.followers.toLocaleString();
+          document.getElementById("followingCount").textContent =
+            user.following.toLocaleString();
+          document.getElementById("repoCount").textContent =
+            user.public_repos.toLocaleString();
+          document.getElementById("gistCount").textContent =
+            user.public_gists.toLocaleString();
+
+          // Update progress
+          document.getElementById("progressBar").style.width = "85%";
+          document.getElementById("loadingMessage").textContent =
+            "Creating visualizations...";
+
+          // Render charts and data
+          renderLanguageChart(getLanguageStats(repos));
+          renderSocialChart(user.followers, user.following);
+          displayTopStarredRepos(repos);
+          populateRepoFilter(repos);
+          displayRepos(repos);
+
+          // Update progress to 95%
+          document.getElementById("progressBar").style.width = "95%";
+          document.getElementById("loadingMessage").textContent =
+            "Loading contribution calendar...";
+
+          // Load contribution calendar
+          GitHubCalendar("#heatmap", username, {
+            responsive: true,
+            tooltips: true,
+          });
+
+          // Complete the progress bar
+          document.getElementById("progressBar").style.width = "100%";
+          document.getElementById("loadingMessage").textContent = "Complete!";
+
+          // Small delay to allow the user to see 100% before hiding
+          setTimeout(() => {
+            if (!searchCancelled) {
+              // Show results and scroll
+              document.getElementById("ProfileInfo").classList.remove("hidden");
+              document
+                .getElementById("loadingIndicator")
+                .classList.add("hidden");
+              document
+                .getElementById("ProfileInfoSection")
+                .scrollIntoView({ behavior: "smooth" });
+            }
+          }, 500);
+
+          // Fetch and display followers and following
+          fetchAndDisplayFollowers(username);
+          fetchAndDisplayFollowing(username);
+        } catch (error) {
+          console.error("Error fetching GitHub data:", error);
+
+          if (!searchCancelled) {
+            document.getElementById("errorNotice").classList.remove("hidden");
+            document
+              .getElementById("helpButtonContainer")
+              .classList.remove("hidden");
+
+            // Update error message based on error type
+            if (error.message === "User not found") {
+              document.getElementById("errorNotice").textContent =
+                "User not found. Please check the username and try again.";
+            } else if (error.message.includes("API rate limit exceeded")) {
+              document.getElementById("errorNotice").textContent =
+                "GitHub API rate limit exceeded. Please try again later.";
+            } else {
+              document.getElementById("errorNotice").textContent =
+                "Error fetching data from GitHub. Please try again later.";
+            }
+          }
+        } finally {
+          // Clear timeouts and intervals
+          clearTimeout(loadingTimeout);
+          clearInterval(progressInterval);
+
+          if (!searchCancelled) {
+            document.getElementById("loadingIndicator").classList.add("hidden");
+          }
+        }
+      }
+
+      function getLanguageStats(repos) {
+        const stats = {};
+        repos.forEach((r) => {
+          const lang = r.language || "Other";
+          stats[lang] = (stats[lang] || 0) + 1;
+        });
+        return stats;
+      }
+
+      function renderLanguageChart(data) {
+        const ctx = document.getElementById("languageChart").getContext("2d");
+        if (window.languageChartInstance)
+          window.languageChartInstance.destroy();
+
+        // Sort languages by count and limit to top 8, with "Other" for the rest
+        const sortedEntries = Object.entries(data).sort((a, b) => b[1] - a[1]);
+        let labels = [],
+          values = [];
+
+        if (sortedEntries.length > 8) {
+          const topEntries = sortedEntries.slice(0, 7);
+          const otherSum = sortedEntries
+            .slice(7)
+            .reduce((sum, entry) => sum + entry[1], 0);
+
+          labels = [...topEntries.map((e) => e[0]), "Other"];
+          values = [...topEntries.map((e) => e[1]), otherSum];
+        } else {
+          labels = sortedEntries.map((e) => e[0]);
+          values = sortedEntries.map((e) => e[1]);
+        }
+
+        window.languageChartInstance = new Chart(ctx, {
+          type: "pie",
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                data: values,
+                backgroundColor: labels.map(
+                  (_, i) => `hsl(${(i * 40) % 360}, 70%, 60%)`
+                ),
+                borderColor: "#ffffff30",
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: {
+                position: "right",
+                labels: {
+                  color: "white",
+                  padding: 10,
+                },
+              },
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    const label = context.label || "";
+                    const value = context.raw;
+                    const percentage = Math.round(
+                      (value / values.reduce((a, b) => a + b, 0)) * 100
+                    );
+                    return `${label}: ${value} repos (${percentage}%)`;
+                  },
+                },
+              },
+            },
+          },
+        });
+      }
+
+      function renderSocialChart(followers, following) {
+        const ctx = document.getElementById("socialChart").getContext("2d");
+        if (window.socialChartInstance) window.socialChartInstance.destroy();
+        window.socialChartInstance = new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: ["Followers", "Following"],
+            datasets: [
+              {
+                label: "Count",
+                data: [followers, following],
+                backgroundColor: ["#3b82f6", "#10b981"],
+                borderColor: ["#2563eb", "#059669"],
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            scales: {
+              y: {
+                beginAtZero: true,
+                ticks: {
+                  color: "white",
+                },
+                grid: {
+                  color: "rgba(255, 255, 255, 0.1)",
+                },
+              },
+              x: {
+                ticks: {
+                  color: "white",
+                },
+              },
+            },
+            plugins: {
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    return `${context.label}: ${context.raw.toLocaleString()}`;
+                  },
+                },
+              },
+            },
+          },
+        });
+      }
+
+      function displayTopStarredRepos(repos) {
+        const top = repos
+          .sort((a, b) => b.stargazers_count - a.stargazers_count)
+          .slice(0, 5);
+        const ul = document.getElementById("topRepos");
+        ul.innerHTML = "";
+
+        if (top.length === 0) {
+          ul.innerHTML = "<li class='text-gray-400'>No repositories found</li>";
+          return;
+        }
+
+        top.forEach((repo) => {
+          ul.innerHTML += `
+            <li class="mb-3">
+              <div class="flex flex-col">
+                <a href="${
+                  repo.html_url
+                }" target="_blank" class="link text-blue-300 hover:underline font-medium">
+                  ${repo.name} (${repo.stargazers_count}⭐)
+                </a>
+                <p class="text-sm text-gray-300">${
+                  repo.description || "No description"
+                }</p>
+              </div>
+            </li>`;
+        });
+      }
+
+      function populateRepoFilter(repos) {
+        const select = document.getElementById("languageFilter");
+        const languages = new Set(repos.map((r) => r.language).filter(Boolean));
+        select.innerHTML = '<option value="all">All Languages</option>';
+
+        // Sort languages alphabetically
+        [...languages].sort().forEach((lang) => {
+          select.innerHTML += `<option value="${lang}">${lang}</option>`;
+        });
+      }
+
+      function filterReposByLanguage(lang) {
+        if (lang === "all") {
+          displayRepos(reposGlobal);
+        } else {
+          const filtered = reposGlobal.filter((r) => r.language === lang);
+          displayRepos(filtered);
+        }
+
+        // Apply any active sort
+        const sortOption = document.getElementById("sortOption").value;
+        if (sortOption !== "updated") {
+          sortRepos(sortOption, false); // Don't redisplay, just sort
+        }
+      }
+
+      function sortRepos(criteria, redisplay = true) {
+        let filtered =
+          document.getElementById("languageFilter").value === "all"
+            ? reposGlobal
+            : reposGlobal.filter(
+                (r) =>
+                  r.language === document.getElementById("languageFilter").value
+              );
+
+        switch (criteria) {
+          case "stars":
+            filtered.sort((a, b) => b.stargazers_count - a.stargazers_count);
+            break;
+          case "forks":
+            filtered.sort((a, b) => b.forks_count - a.forks_count);
+            break;
+          case "name":
+            filtered.sort((a, b) => a.name.localeCompare(b.name));
+            break;
+          default: // updated
+            filtered.sort(
+              (a, b) => new Date(b.updated_at) - new Date(a.updated_at)
+            );
+        }
+
+        if (redisplay) {
+          displayRepos(filtered);
+        }
+        return filtered;
+      }
+
+      function displayRepos(repos) {
+        const container = document.getElementById("repoList");
+        const noReposMessage = document.getElementById("noReposMessage");
+        container.innerHTML = "";
+
+        if (repos.length === 0) {
+          noReposMessage.classList.remove("hidden");
+          return;
+        }
+
+        noReposMessage.classList.add("hidden");
+
+        repos.forEach((repo) => {
+          // Calculate last updated time
+          const updatedDate = new Date(repo.updated_at);
+          const now = new Date();
+          const diffTime = Math.abs(now - updatedDate);
+          const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+          let updatedText = "";
+
+          if (diffDays < 1) {
+            updatedText = "Updated today";
+          } else if (diffDays === 1) {
+            updatedText = "Updated yesterday";
+          } else {
+            updatedText = `Updated ${diffDays} days ago`;
+          }
+
+          container.innerHTML += `
+            <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow">
+              <div class="card-body">
+                <div class="flex justify-between items-start">
+                  <h3 class="text-lg font-semibold card-title">
+                    <a href="${
+                      repo.html_url
+                    }" target="_blank" class="hover:text-blue-300 transition-colors">${
+            repo.name
+          }</a>
+                  </h3>
+                  ${
+                    repo.fork
+                      ? '<span class="badge badge-secondary">Fork</span>'
+                      : ""
+                  }
+                </div>
+                <p class="text-sm text-gray-300 my-2 min-h-[40px]">${
+                  repo.description || "No description"
+                }</p>
+                <div class="flex flex-wrap gap-2 my-2">
+                  ${
+                    repo.language
+                      ? `<span class="badge badge-outline">${repo.language}</span>`
+                      : ""
+                  }
+                  ${
+                    repo.topics && repo.topics.length > 0
+                      ? repo.topics
+                          .slice(0, 3)
+                          .map(
+                            (topic) =>
+                              `<span class="badge badge-primary badge-outline">${topic}</span>`
+                          )
+                          .join("")
+                      : ""
+                  }
+                </div>
+                <div class="flex justify-between items-center text-xs text-gray-400 mt-2">
+                  <div class="flex items-center gap-3">
+                    <span class="flex items-center"><svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg> ${
+                      repo.stargazers_count
+                    }</span>
+                    <span class="flex items-center"><svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 3a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2H5zm9.707 5.707a1 1 0 00-1.414-1.414L9 11.586l-2.293-2.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l5-5z" clip-rule="evenodd"></path></svg> ${
+                      repo.forks_count
+                    }</span>
+                  </div>
+                  <span>${updatedText}</span>
+                </div>
+                <div class="card-actions mt-4">
+                  <a href="${
+                    repo.html_url
+                  }" target="_blank" class="btn btn-sm btn-outline">View Repo</a>
+                  ${
+                    repo.homepage
+                      ? `<a href="${repo.homepage}" target="_blank" class="btn btn-sm btn-primary">Live Demo</a>`
+                      : ""
+                  }
+                </div>
+              </div>
+            </div>
+          `;
+        });
+      }
+
+      // Add a new function to reset the app
+      function resetApp() {
+        document.getElementById("search").value = "";
+        document.getElementById("ProfileInfo").classList.add("hidden");
+        document
+          .getElementById("helpButtonContainer")
+          .classList.remove("hidden");
+        document.getElementById("errorNotice").classList.add("hidden");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      // Add a cancel search function
+      function cancelSearch() {
+        searchCancelled = true;
+        clearTimeout(loadingTimeout);
+        clearInterval(progressInterval);
+
+        document.getElementById("loadingIndicator").classList.add("hidden");
+        document
+          .getElementById("helpButtonContainer")
+          .classList.remove("hidden");
+        document.getElementById("errorNotice").classList.add("hidden");
+      }
+
+      // Add these functions to your existing script
+      async function fetchAndDisplayFollowers(username) {
+        try {
+          // Update the "View all" link
+          document.getElementById(
+            "viewAllFollowersLink"
+          ).href = `${currentUser.html_url}?tab=followers`;
+
+          // Fetch followers (limit to 6)
+          const followersRes = await fetch(
+            `https://api.github.com/users/${username}/followers?per_page=6`
+          );
+          if (!followersRes.ok) throw new Error("Failed to fetch followers");
+
+          const followers = await followersRes.json();
+          displayUserCards(followers, "followersContainer", "followers");
+        } catch (error) {
+          console.error("Error fetching followers:", error);
+          document.getElementById("followersContainer").innerHTML = `
+            <div class="text-center py-4 text-gray-400">
+              <p>Could not load followers</p>
+            </div>
+          `;
+        }
+      }
+
+      async function fetchAndDisplayFollowing(username) {
+        try {
+          // Update the "View all" link
+          document.getElementById(
+            "viewAllFollowingLink"
+          ).href = `${currentUser.html_url}?tab=following`;
+
+          // Fetch following (limit to 6)
+          const followingRes = await fetch(
+            `https://api.github.com/users/${username}/following?per_page=6`
+          );
+          if (!followingRes.ok) throw new Error("Failed to fetch following");
+
+          const following = await followingRes.json();
+          displayUserCards(following, "followingContainer", "following");
+        } catch (error) {
+          console.error("Error fetching following:", error);
+          document.getElementById("followingContainer").innerHTML = `
+            <div class="text-center py-4 text-gray-400">
+              <p>Could not load following</p>
+            </div>
+          `;
+        }
+      }
+
+      function displayUserCards(users, containerId, type) {
+        const container = document.getElementById(containerId);
+
+        if (users.length === 0) {
+          container.innerHTML = `
+            <div class="text-center py-4 text-gray-400">
+              <p>No ${type} found</p>
+            </div>
+          `;
+          return;
+        }
+
+        let cardsHtml = "";
+
+        users.forEach((user) => {
+          cardsHtml += `
+            <div class="flex items-center justify-between bg-gray-800 rounded-lg p-3 hover:bg-gray-700 transition-colors">
+              <div class="flex items-center">
+                <img src="${user.avatar_url}" alt="${user.login}" class="w-10 h-10 rounded-full mr-3">
+                <span class="font-medium">${user.login}</span>
+              </div>
+              <a href="${user.html_url}" target="_blank" class="btn btn-xs btn-outline">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+                <span class="ml-1 hidden sm:inline">Profile</span>
+              </a>
+            </div>
+          `;
+        });
+
+        container.innerHTML = cardsHtml;
+      }
     </script>
-</body>
+  </body>
 </html>
